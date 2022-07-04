@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafe demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    {{>layout/header}}
+</header>
+
+<main class="container">
+    <div class="row">
+        <div class="col">
+            <h2> 장바구니 </h2>
+            <div id="cart"></div>
+            <button class="btn btn-primary cart-order-button">카트 주문하기</button>
+            <button class="btn btn-danger cart-clear-button">카트 비우기</button>
+
+            <h2> 메뉴 </h2>
+            총 커피 수 : {{totalCount}}
+
+            {{#coffees}}
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <a href="/pages/coffees/{{id}}">
+                                <img style="height: 250px; border: 1px solid black;"
+                                     src="{{thumbnailUrl}}" class="img-fluid rounded-start" alt="coffee image"/>
+                            </a>
+                        </div>
+
+                        <div class="col-md-8">
+                            {{>layout/coffee-card-body}}
+                        </div>
+                    </div>
+                </div>
+            {{/coffees}}
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"
+        integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

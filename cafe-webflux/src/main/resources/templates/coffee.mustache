@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cafe demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    {{>layout/header}}
+</header>
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2> 커피 상세 </h2>
+            {{#coffee}}
+                <div class="card">
+                    <img src="{{thumbnailUrl}}" class="card-img-top" alt="coffee image">
+                    {{>layout/coffee-card-body}}
+                </div>
+            {{/coffee}}
+        </div>
+
+        <div class="col-md-8">
+            <h2> 댓글 목록 </h2>
+            {{#coffee}}
+                {{#comments}}
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{avatarUrl}}" class="img-fluid rounded-circle" alt="avatar"
+                                     style="width: 200px;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{nickname}}
+                                    </h5>
+                                    <p class="card-text">내용: {{content}}</p>
+                                    <p class="card-text">평점: {{rating}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/comments}}
+            {{/coffee}}
+        </div>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"
+        integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>

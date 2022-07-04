@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  redis:
+    image: redis:7.0.2-alpine
+    ports:
+      - "6379:6379"
+  mongo:
+    image: mongo:4.2.21
+    ports:
+      - "27017:27017"
+    volumes:
+      - ".docker/mongo:/data/db"
+  mysql:
+    image: mysql:8.0.28-oracle
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ".docker/mysql:/var/lib/mysql"
+  rabbitmq:
+    image: rabbitmq:3.10.5-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-My-Cookies"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "1234"

@@ -1,0 +1,2 @@
+grpc:
+  enable-reflection: true

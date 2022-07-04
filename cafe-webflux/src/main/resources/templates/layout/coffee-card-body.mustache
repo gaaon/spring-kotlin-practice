@@ -1,0 +1,15 @@
+<div class="card-body">
+    <h5 class="card-title">
+        <a href="/pages/coffees/{{id}}"> {{name}} </a>
+    </h5>
+    <p class="card-text">{{description}}</p>
+    <p class="card-text">가격: {{priceStr}}원</p>
+    <p class="card-text">재고: {{stock}}개</p>
+    <p class="card-text">평점: {{rating}} </p>
+    <p class="card-text">댓글 수: {{commentsCount}}</p>
+
+    <button class="btn btn-primary order-button" data-coffee-id="{{id}}">주문하기</button>
+    <button class="btn btn-secondary cart-button" data-coffee-id="{{id}}"
+            data-coffee-name="{{name}}">담기
+    </button>
+</div>

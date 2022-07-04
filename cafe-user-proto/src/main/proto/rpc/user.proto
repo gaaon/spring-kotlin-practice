@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package practice.cafe.user;
+
+option java_multiple_files = true;
+option java_outer_classname = "CafeUserServiceProto";
+option java_package = "practice.cafe.user.rpc";
+
+message CafeUser {
+  int64 id = 1;
+  string nickname = 2;
+  string avatarUrl = 3;
+}
+
+service CafeUserService {
+  rpc ListCafeUsers(ListCafeUsersReq) returns (ListCafeUsersResp) {}
+  rpc GetCafeUser(GetCafeUserReq) returns (GetCafeUserResp) {}
+}
+
+message ListCafeUsersReq {
+  repeated int64 user_ids = 1;
+}
+
+message ListCafeUsersResp {
+  repeated CafeUser users = 1;
+}
+
+message GetCafeUserReq {
+  int64 user_id = 1;
+}
+
+message GetCafeUserResp {
+  optional CafeUser user = 1;
+}

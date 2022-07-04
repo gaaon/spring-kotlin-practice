@@ -1,0 +1,22 @@
+spring:
+  r2dbc:
+    url: r2dbc:pool:mysql://root:1234@localhost:3306/cafe?useUnicode=true&characterEncoding=utf8
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/cafe
+  cloud:
+    function:
+      definition: orderSuccess
+    stream:
+      bindings:
+        orderSuccess-out-0:
+          binder: rabbit
+          destination: order-topic
+        orderSuccess-in-0:
+          binder: rabbit
+          destination: order-topic
+          group: order-consumer
+  rabbitmq:
+    addresses: localhost
+    username: admin
+    password: 1234
