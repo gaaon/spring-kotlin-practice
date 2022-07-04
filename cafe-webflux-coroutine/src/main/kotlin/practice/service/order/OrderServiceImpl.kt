@@ -8,7 +8,7 @@ import org.springframework.cloud.stream.function.StreamBridge
 import org.springframework.context.annotation.Primary
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate
 import org.springframework.stereotype.Service
-import practice.repository.order.CoffeeOrderRepository
+import practice.repository.order.CoffeeOrderMongoRepository
 import practice.repository.order.document.CoffeeOrderDocument
 import practice.repository.order.document.CoffeeOrderItemDocument
 import practice.service.order.domain.CoffeeOrder
@@ -19,7 +19,7 @@ import practice.service.order.domain.CreateCoffeeOrder
 @Service
 class OrderServiceImpl(
     private val redisTemplate: ReactiveStringRedisTemplate,
-    private val orderRepository: CoffeeOrderRepository,
+    private val orderRepository: CoffeeOrderMongoRepository,
     private val streamBridge: StreamBridge,
 ) : OrderService {
     override suspend fun createOrder(req: CreateCoffeeOrder): CoffeeOrder {

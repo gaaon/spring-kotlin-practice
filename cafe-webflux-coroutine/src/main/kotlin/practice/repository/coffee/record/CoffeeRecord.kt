@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table
 
 @Table("coffee")
 class CoffeeRecord(
-    @Id val id: Long,
+    @Id var id: Long? = null,
     val name: String,
     val price: Int,
     val thumbnailUrl: String,

@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import practice.repository.coffee.CoffeeR2dbcRepository
-import practice.repository.order.CoffeeOrderRepository
+import practice.repository.order.CoffeeOrderMongoRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.function.Function
 
 @Component
 class OrderConsumer(
-    private val orderRepository: CoffeeOrderRepository,
+    private val orderRepository: CoffeeOrderMongoRepository,
     private val coffeeRepository: CoffeeR2dbcRepository,
     private val telegramWebClient: WebClient,
 ) : Function<Flux<ByteArray>, Mono<Void>> {

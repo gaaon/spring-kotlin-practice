@@ -37,8 +37,8 @@ class CoffeeServiceImpl(
             ?.let { addExtra(it) }
     }
 
-    private suspend fun addExtra(coffee: CoffeeRecord): CoffeeModel {
-        val coffeeId = coffee.id
+    internal suspend fun addExtra(coffee: CoffeeRecord): CoffeeModel {
+        val coffeeId = coffee.id!!
 
         val comments = commentRepository.findAllByCoffeeId(coffeeId).toList()
 
@@ -79,8 +79,8 @@ class CoffeeServiceImpl(
     }
 
     @Suppress("UnusedPrivateMember")
-    private suspend fun addExtraWithAsync(coffee: CoffeeRecord): CoffeeModel {
-        val coffeeId = coffee.id
+    internal suspend fun addExtraWithAsync(coffee: CoffeeRecord): CoffeeModel {
+        val coffeeId = coffee.id!!
 
         val (comments, stock) = withContext(Dispatchers.IO) {
             coroutineScope {

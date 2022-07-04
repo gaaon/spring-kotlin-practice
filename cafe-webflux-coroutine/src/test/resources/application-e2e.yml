@@ -1,0 +1,12 @@
+TELEGRAM_BOT_TOKEN: test
+
+spring:
+  r2dbc:
+    url: r2dbc:tc:mysql:///databasename?TC_IMAGE_TAG=8.0.28-oracle
+    username: root
+    password: 1234
+  sql:
+    init:
+      schema-locations:
+        - classpath:sql/schema.sql
+      mode: always

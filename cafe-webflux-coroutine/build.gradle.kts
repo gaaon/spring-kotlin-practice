@@ -41,19 +41,46 @@ dependencies {
     implementation("io.grpc:grpc-all:_")
     implementation("io.grpc:grpc-kotlin-stub:_")
 
+    // snakeyaml
+    implementation("org.yaml:snakeyaml:1.29")
+
     /* test */
+    // junit
+    testImplementation("org.junit.jupiter:junit-jupiter:_")
+
     // spring
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
 
     // kotest
     testImplementation("io.kotest:kotest-assertions-core:_")
     testImplementation("io.kotest:kotest-runner-junit5:_")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:_")
 
     // mockk
     testImplementation("io.mockk:mockk:_")
+    testImplementation("com.ninja-squad:springmockk:_")
+
+    // faker
+    testImplementation("com.github.javafaker:javafaker:_")
+
+    // testcontainer
+    testImplementation(platform("org.testcontainers:testcontainers-bom:_"))
+    testImplementation("org.testcontainers:mysql")
+    testImplementation("org.testcontainers:r2dbc")
+    testImplementation("org.testcontainers:mongodb")
+    testImplementation("org.testcontainers:testcontainers")
+    testImplementation("org.testcontainers:junit-jupiter")
+
+    // r2dbc
+    testImplementation("io.r2dbc:r2dbc-h2")
+    testImplementation("mysql:mysql-connector-java")
+
+    // jsoup
+    testImplementation("org.jsoup:jsoup:_")
+
 }
-
-
 
 dependencyManagement {
     imports {

@@ -21,24 +21,26 @@
             <button class="btn btn-danger cart-clear-button">카트 비우기</button>
 
             <h2> 메뉴 </h2>
-            총 커피 수 : {{totalCount}}
+            <p class="total-coffee-count"> 총 커피 수 : {{totalCount}} </p>
 
-            {{#coffees}}
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4 d-flex justify-content-center">
-                            <a href="/pages/coffees/{{id}}">
-                                <img style="height: 250px; border: 1px solid black;"
-                                     src="{{thumbnailUrl}}" class="img-fluid rounded-start" alt="coffee image"/>
-                            </a>
-                        </div>
+            <div class="coffee-card-container">
+                {{#coffees}}
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4 d-flex justify-content-center">
+                                <a href="/pages/coffees/{{id}}">
+                                    <img style="height: 250px; border: 1px solid black;"
+                                         src="{{thumbnailUrl}}" class="img-fluid rounded-start" alt="coffee image"/>
+                                </a>
+                            </div>
 
-                        <div class="col-md-8">
-                            {{>layout/coffee-card-body}}
+                            <div class="col-md-8">
+                                {{>layout/coffee-card-body}}
+                            </div>
                         </div>
                     </div>
-                </div>
-            {{/coffees}}
+                {{/coffees}}
+            </div>
         </div>
     </div>
 </main>

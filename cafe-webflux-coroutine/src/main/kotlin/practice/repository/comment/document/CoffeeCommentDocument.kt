@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("comment")
 class CoffeeCommentDocument(
-    @Id val id: ObjectId,
+    @Id var id: ObjectId? = null,
     val nickname: String,
     val content: String,
     val rating: Int,
