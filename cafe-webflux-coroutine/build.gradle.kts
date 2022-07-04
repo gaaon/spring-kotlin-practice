@@ -1,3 +1,7 @@
+import com.google.cloud.tools.jib.gradle.JibExtension
+
+apply(plugin = "com.google.cloud.tools.jib")
+
 dependencies {
     implementation(project(":cafe-user-proto"))
 
@@ -85,5 +89,44 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Version.SPRING_CLOUD}")
+    }
+}
+
+configure<JibExtension> {
+    extraDirectories {
+        setPaths(files("../agents"))
+    }
+
+    from {
+        image = "eclipse-temurin:17.0.3_7-jre-alpine"
+    }
+
+    to {
+        image = "ghcr.io/gaaon/spring-kotlin-practice"
+        tags = setOf(gitBranch().replace("/", "_"), gitHashLong())
+    }
+
+    container {
+        environment = mapOf(
+            "ENV1" to "test",
+            "SENTRY_RELEASE" to gitHashLong(),
+        )
+
+        jvmFlags = listOf(
+            "-javaagent:/reactor-tools-agent.jar",
+            "-server",
+            "-Xms1024m",
+            "-Xmx1024m",
+            "-XX:MetaspaceSize=384m",
+            "-XX:MaxMetaspaceSize=384m",
+            "-XX:+DisableExplicitGC",
+            "-Duser.timezone=Asia/Seoul",
+            "-Djava.net.preferIPv4Stack=true",
+            "-Djava.net.preferIPv6Addresses=false",
+            "-Dsun.net.inetaddr.ttl=0",
+            "-Dnetworkaddress.cache.ttl=0",
+            "-Dnetworkaddress.cache.negative.ttl=0",
+            "-Dsun.net.inetaddr.ttl=0"
+        )
     }
 }
