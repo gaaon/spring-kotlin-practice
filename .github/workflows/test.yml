@@ -23,7 +23,7 @@ jobs:
           distribution: temurin
       - name: Test
         run: |
-          ./gradlew :cafe-webflux-coroutine --continue --no-daemon
+          ./gradlew :cafe-webflux-coroutine:test --continue --no-daemon
           ./gradlew jacocoTestReport --no-daemon
       - name: Detekt
         run: ./gradlew detekt
