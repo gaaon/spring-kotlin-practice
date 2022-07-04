@@ -1,0 +1,21 @@
+name: Check
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  ktlint:
+    name: Ktlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: ktlint
+        uses: ScaCap/action-ktlint@1.4
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          ktlint_version: 0.45.2
