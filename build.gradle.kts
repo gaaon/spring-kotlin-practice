@@ -1,4 +1,7 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 plugins {
     java
@@ -7,6 +10,10 @@ plugins {
     id("io.spring.dependency-management")
     id("com.google.cloud.tools.jib") apply false
     id("com.google.protobuf") apply false
+    id("jacoco")
+    id("io.gitlab.arturbosch.detekt")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("org.jlleitschuh.gradle.ktlint-idea")
 
     kotlin("jvm")
     kotlin("plugin.spring")
@@ -27,6 +34,9 @@ subprojects {
     apply(plugin = "idea")
     apply(plugin = "kotlin")
     apply(plugin = "kotlin-kapt")
+    apply(plugin = "jacoco")
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     repositories {
         mavenCentral()
@@ -37,6 +47,9 @@ subprojects {
         if (System.getProperty("os.arch") == "aarch64" && System.getProperty("os.name") == "Mac OS X") {
             runtimeOnly("io.netty:netty-resolver-dns-native-macos:_:osx-aarch_64")
         }
+
+        /* detekt */
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
     }
 
     java {
@@ -55,10 +68,49 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 
     tasks.named<ProcessResources>("processResources") {
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            html.required.set(false)
+            xml.required.set(true)
+            txt.required.set(false)
+        }
+    }
+
+    detekt {
+        buildUponDefaultConfig = true
+
+        source = objects.fileCollection().from(
+            DetektExtension.DEFAULT_SRC_DIR_JAVA,
+            "src/test/java",
+            DetektExtension.DEFAULT_SRC_DIR_KOTLIN,
+            "src/test/kotlin"
+        )
+
+        config = files("$rootDir/config/detekt/detekt.yml")
+
+        parallel = false
+    }
+
+    jacoco {
+        toolVersion = "0.8.7"
+    }
+
+    configure<KtlintExtension> {
+        version.set("0.45.2")
+        android.set(false)
+        filter {
+            exclude("**/generated/**")
+        }
     }
 }
 
@@ -76,4 +128,3 @@ configure(springProjects) {
     apply(plugin = "kotlin-spring")
     apply(plugin = "kotlin-noarg")
 }
-

@@ -27,4 +27,3 @@ class CafeUser(
         return "User(id=$id, avatarUrl='$avatarUrl', nickname='$nickname')"
     }
 }
-

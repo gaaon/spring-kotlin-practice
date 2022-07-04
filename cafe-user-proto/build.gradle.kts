@@ -25,7 +25,6 @@ dependencies {
     // reactor
     implementation("io.projectreactor:reactor-core:_")
     implementation("com.salesforce.servicelibs:reactor-grpc-stub:_")
-
 }
 
 val generatedProtoPath = "$projectDir/generated"
