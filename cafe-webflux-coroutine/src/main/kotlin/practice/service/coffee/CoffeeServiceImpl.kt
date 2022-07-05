@@ -4,6 +4,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactor.awaitSingle
@@ -27,6 +30,37 @@ class CoffeeServiceImpl(
     private val commentRepository: CommentMongoRepository,
     private val cafeUserService: CafeUserServiceGrpcKt.CafeUserServiceCoroutineStub,
 ) : CoffeeService {
+    fun findAllAsMock(): Flow<CoffeeModel> {
+        return flow {
+            val models = listOf(
+                CoffeeModel(
+                    id = 100,
+                    thumbnailUrl = "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p.jpg",
+                    name = "뜨거운 아메리카노",
+                    stock = 100,
+                    description = "아메리카노 (핫)",
+                    price = 1300,
+                    comments = emptyList(),
+                    rating = 0.0,
+                    commentsCount = 0,
+                ),
+                CoffeeModel(
+                    id = 101,
+                    thumbnailUrl = "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_33/2203981/171026-better-coffee-boost-se-329p.jpg",
+                    name = "뜨거운 아메리카노 (얼음 적게)",
+                    stock = 100,
+                    description = "아메리카노 (핫, 얼음 적게)",
+                    price = 1100,
+                    comments = emptyList(),
+                    rating = 0.0,
+                    commentsCount = 0,
+                )
+            )
+
+            this.emitAll(models.asFlow())
+        }
+    }
+
     override fun findAll(): Flow<CoffeeModel> {
         return coffeeRepository.findAllByOrderById()
             .map { addExtraWithAsync(it) }

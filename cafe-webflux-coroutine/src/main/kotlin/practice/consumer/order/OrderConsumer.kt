@@ -1,8 +1,10 @@
 package practice.consumer.order
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.reactor.awaitSingle
 import kotlinx.coroutines.reactor.mono
+import kotlinx.coroutines.withContext
 import org.bson.types.ObjectId
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -43,16 +45,22 @@ class OrderConsumer(
                 }.joinToString("\n")
 
                 if (telegramWebClient != null) {
-                    telegramWebClient.get()
-                        .uri {
-                            it.path("/sendMessage")
-                                .queryParam("chat_id", CHAT_ID)
-                                .queryParam("text", chatMessage)
-                                .build()
+                    withContext(Dispatchers.IO) {
+                        try {
+                            telegramWebClient.get()
+                                .uri {
+                                    it.path("/sendMessage")
+                                        .queryParam("chat_id", CHAT_ID)
+                                        .queryParam("text", chatMessage)
+                                        .build()
+                                }
+                                .retrieve()
+                                .bodyToMono(String::class.java)
+                                .awaitSingle()
+                        } catch (e: Exception) {
+                            log.error(e.message, e)
                         }
-                        .retrieve()
-                        .bodyToMono(String::class.java)
-                        .awaitSingle()
+                    }
                 } else {
                     log.info(chatMessage)
                 }
