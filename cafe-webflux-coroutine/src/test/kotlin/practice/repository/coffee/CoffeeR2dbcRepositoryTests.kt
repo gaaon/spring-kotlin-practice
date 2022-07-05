@@ -18,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import practice.TestHelper
 import practice.repository.coffee.record.CoffeeRecord
-import kotlin.random.Random
 
 @ExtendWith(SpringExtension::class)
 @ContextConfiguration(classes = [CoffeeR2dbcTestConfig::class])

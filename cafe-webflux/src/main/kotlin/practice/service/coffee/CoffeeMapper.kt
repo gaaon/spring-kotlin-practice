@@ -7,7 +7,6 @@ import org.mapstruct.factory.Mappers
 import practice.controller.coffee.model.CoffeeCommentModel
 import practice.controller.coffee.model.CoffeeModel
 import practice.repository.coffee.record.CoffeeRecord
-import practice.repository.comment.document.CoffeeCommentDocument
 import practice.service.coffee.domain.Coffee
 import practice.service.coffee.domain.CoffeeComment
 

@@ -21,7 +21,6 @@ import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.returnResult
 import practice.TestHelper
-import practice.cafe.user.rpc.CafeUser
 import practice.cafe.user.rpc.CafeUserServiceGrpcKt
 import practice.cafe.user.rpc.ListCafeUsersReq
 import practice.cafe.user.rpc.cafeUser
