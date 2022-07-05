@@ -17,7 +17,7 @@ import java.util.function.Function
 class OrderConsumer(
     private val orderRepository: CoffeeOrderMongoRepository,
     private val coffeeRepository: CoffeeR2dbcRepository,
-    private val telegramWebClient: WebClient,
+    private val telegramWebClient: WebClient?,
 ) : Function<Flux<ByteArray>, Mono<Void>> {
     companion object {
         const val CHAT_ID = 5468792046L
@@ -42,16 +42,20 @@ class OrderConsumer(
                     }
                 }.joinToString("\n")
 
-                telegramWebClient.get()
-                    .uri {
-                        it.path("/sendMessage")
-                            .queryParam("chat_id", CHAT_ID)
-                            .queryParam("text", chatMessage)
-                            .build()
-                    }
-                    .retrieve()
-                    .bodyToMono(String::class.java)
-                    .awaitSingle()
+                if (telegramWebClient != null) {
+                    telegramWebClient.get()
+                        .uri {
+                            it.path("/sendMessage")
+                                .queryParam("chat_id", CHAT_ID)
+                                .queryParam("text", chatMessage)
+                                .build()
+                        }
+                        .retrieve()
+                        .bodyToMono(String::class.java)
+                        .awaitSingle()
+                } else {
+                    log.info(chatMessage)
+                }
             }
         }.onErrorContinue { t, _ ->
             log.error(t.message, t)

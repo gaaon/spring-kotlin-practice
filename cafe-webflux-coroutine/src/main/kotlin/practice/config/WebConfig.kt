@@ -9,8 +9,10 @@ import org.springframework.web.reactive.function.client.WebClient
 class WebConfig {
     @Bean
     fun telegramWebClient(
-        @Value("\${TELEGRAM_BOT_TOKEN}") telegramBotToken: String,
-    ): WebClient {
+        @Value("\${TELEGRAM_BOT_TOKEN:}") telegramBotToken: String,
+    ): WebClient? {
+        if (telegramBotToken.isBlank()) return null
+
         return WebClient.builder()
             .baseUrl("https://api.telegram.org/bot$telegramBotToken")
             .build()
