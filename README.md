@@ -53,3 +53,11 @@ TELEGRAM_BOT_TOKEN=<telegram_bot_token> ./gradlew :cafe-webflux-coroutine:bootRu
 ```
 
 [token 발급](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
+
+## 테스트
+1. docker 를 실행해주세요
+
+2. cafe-webflux-coroutine test를 실행해주세요
+```shell
+./gradlew :cafe-webflux-coroutine:test
+```
