@@ -87,7 +87,7 @@ class ReactiveStringRedisTemplateTests {
         }
 
         @Test
-        fun `should return increased value after increasing`(): Unit = runBlocking {
+        fun `should return decreased value after decreasing`(): Unit = runBlocking {
             // given
             val randomDecrease = Random.nextLong(1, randomStock)
 

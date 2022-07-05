@@ -2,6 +2,7 @@ package practice.service.coffee
 
 import io.kotest.assertions.asClue
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.core.spec.style.WordSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
